@@ -41,8 +41,8 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="libreria"/>
-  <table-filter match-name="libro"/>
-  <table-filter match-name="vendedor"/>
   <table-filter match-name="cliente"/>
+  <table-filter match-name="libro"/>
   <table-filter match-name="usuario"/>
+  <table-filter match-name="vendedor"/>
 </hibernate-reverse-engineering>

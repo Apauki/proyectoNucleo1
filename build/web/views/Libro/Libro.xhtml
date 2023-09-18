@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -9,6 +12,113 @@
 
             <ui:define name="content">
                 <h2>Libros</h2>
+                
+                <h:form>
+                    <p:commandButton value="Nuevo Libro" actionListener="#{libroBean.prepareLibro()}"
+                                     oncomplete="PF('dialogNuevoLibro').show()"
+                                     update="formNuevoLibro"/>
+                </h:form>
+
+                <h:form id="formListaLibros">
+                    <p:dataTable id="tablaLibros" paginator="true" paginatorPosition="top" 
+                                 var="libro" value="#{libroBean.libros}">
+                        <p:column headerText="ID"> 
+                            <h:outputText value="#{libro.idLibro}"/>
+                        </p:column>
+                        <p:column headerText="Título">
+                            <h:outputText value="#{libro.titulo}"/>
+                        </p:column>
+                        <p:column headerText="Autor">
+                            <h:outputText value="#{libro.autor}"/>
+                        </p:column>
+                        <p:column headerText="Género">
+                            <h:outputText value="#{libro.genero}"/>
+                        </p:column>
+                        <p:column headerText="Precio">
+                            <h:outputText value="#{libro.precio}"/>
+                        </p:column>
+                        <p:column headerText="Código">
+                            <h:outputText value="#{libro.codigo}"/>
+                        </p:column>
+                        <p:column headerText="Modificar">
+                            <p:commandButton value="Modificar" oncomplete="PF('dialogModificarLibro').show()"
+                                             update="formModificarLibro">
+                                <f:setPropertyActionListener target="#{libroBean.libro}" value="#{libro}"/>                 
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Eliminar" >
+                            <p:commandButton value="Eliminar" oncomplete="PF('dialogEliminarLibro').show()"
+                                             update="formEliminarLibro">
+                                <f:setPropertyActionListener target="#{libroBean.libro}" value="#{libro}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+
+                <h:form id="formNuevoLibro">
+                    <p:dialog id="dlgNuevoLibro" widgetVar="dialogNuevoLibro" resizable="false" showEffect="explode"
+                              hideEffect="explode" modal="true">
+                        <p:panelGrid columns="2" style="margin: 0 auto">
+                            <p:outputLabel value="Título"/>
+                            <p:inputText value="#{libroBean.libro.titulo}"/>
+
+                            <p:outputLabel value="Autor"/>
+                            <p:inputText value="#{libroBean.libro.autor}"/>
+                            
+                             <p:outputLabel value="Género"/>
+                             <p:inputText value="#{libroBean.libro.genero}"/>
+                             
+                            <p:outputLabel value="Precio"/>
+                            <p:inputText value="#{libroBean.libro.precio}"/>
+                            
+                            <p:outputLabel value="Código"/>
+                            <p:inputText value="#{libroBean.libro.codigo}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" actionListener="#{libroBean.insertLibro()}"
+                                         update="formListaLibros:tablaLibros"
+                                         oncomplete="PF('dialogNuevoLibro').hide()"/>
+                        <p:commandButton value="Cancelar" oncomplete="PF('dialogNuevoLibro').hide()"/>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formModificarLibro">
+                    <p:dialog id="dlgModificarLibro" widgetVar="dialogModificarLibro" resizable="false" showEffect="explode"
+                              hideEffect="explode" modal="true">
+                        <p:panelGrid columns="2" style="margin: 0 auto">
+                            <p:outputLabel value="Título"/>
+                            <p:inputText value="#{libroBean.libro.titulo}"/>
+
+                            <p:outputLabel value="Autor"/>
+                            <p:inputText value="#{libroBean.libro.autor}"/>
+                            
+                             <p:outputLabel value="Género"/>
+                             <p:inputText value="#{libroBean.libro.genero}"/>
+                             
+                            <p:outputLabel value="Precio"/>
+                            <p:inputText value="#{libroBean.libro.precio}"/>
+                            
+                            <p:outputLabel value="Código"/>
+                            <p:inputText value="#{libroBean.libro.codigo}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Guardar" actionListener="#{libroBean.updateLibro()}"
+                                         update="formListaLibros:tablaLibros"
+                                         oncomplete="PF('dialogModificarLibro').hide()"/>
+                        <p:commandButton value="Cancelar" oncomplete="PF('dialogModificarLibro').hide()"/>
+                    </p:dialog>
+                </h:form>
+                
+                <h:form id="formEliminarLibro">
+                    <p:dialog id="dlgEliminarLibro" widgetVar="dialogEliminarLibro" resizable="false" showEffect="explode"
+                              hideEffect="explode" modal="true">
+                        <h:outputText value="Desea eliminar el libro?  "/>
+                        <p:commandButton value="Eliminar" actionListener="#{libroBean.deleteLibro()}"
+                                         update="formListaLibros:tablaLibros"
+                                         oncomplete="PF('dialogEliminarLibro').hide()"/>
+                        <p:commandButton value="Cancelar" oncomplete="PF('dialogEliminarLibro').hide()"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>

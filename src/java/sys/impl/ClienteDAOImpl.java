@@ -19,7 +19,7 @@ public class ClienteDAOImpl implements ClienteDAO{
             clientes=session.createQuery(hql).list();
             trans.commit();
         } catch(Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
             trans.rollback();
         } finally {
             session.close();
@@ -37,7 +37,7 @@ public class ClienteDAOImpl implements ClienteDAO{
             session.save(cliente);
             session.getTransaction().commit();
         } catch(Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
             session.getTransaction().rollback();
         }finally{
             session.close();
@@ -53,7 +53,7 @@ public class ClienteDAOImpl implements ClienteDAO{
            session.update(cliente);
            session.getTransaction().commit();
         } catch(Exception ex){
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
             session.getTransaction().rollback();
         } finally {
             session.close();
@@ -69,7 +69,7 @@ public class ClienteDAOImpl implements ClienteDAO{
            session.delete(cliente);
            session.getTransaction().commit();
         } catch(Exception ex){
-            ex.printStackTrace();
+            ex.printStackTrace(System.out);
             session.getTransaction().rollback();
         } finally {
             session.close();
