@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/09/2023 22:53:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="sys.modelo.Libro" table="libro" catalog="libreria" optimistic-lock="version">
+        <id name="idLibro" type="java.lang.Integer">
+            <column name="idLibro" />
+            <generator class="identity" />
+        </id>
+        <property name="titulo" type="string">
+            <column name="titulo" length="75" not-null="true" />
+        </property>
+        <property name="autor" type="string">
+            <column name="autor" length="75" not-null="true" />
+        </property>
+        <property name="genero" type="string">
+            <column name="genero" length="75" not-null="true" />
+        </property>
+        <property name="precio" type="big_decimal">
+            <column name="precio" precision="10" not-null="true" />
+        </property>
+        <property name="codigo" type="string">
+            <column name="codigo" length="50" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
